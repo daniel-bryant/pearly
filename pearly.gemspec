@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.version     = Pearly::VERSION
   spec.authors     = ["daniel-bryant"]
   spec.email       = ["bryant.daniel.j@gmail.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Pearly."
-  spec.description = "TODO: Description of Pearly."
+  spec.homepage    = "https://github.com/daniel-bryant/pearly"
+  spec.summary     = "Lightweight OAuth 2.0 plugin for Rails"
+  spec.description = "Lightweight OAuth 2.0 plugin for Rails"
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
