@@ -9,6 +9,18 @@ module Pearly
 
     attr_reader :client_id, :user_id
 
+    def self.validate(encoded)
+      decoded = JWT.decode(encoded, HMAC_SECRET, true, {
+        iss: ISSUER,
+        verify_iss: true,
+        algorithm: 'HS256',
+      }).first
+
+      Token.new(client_id: decoded["cid"], user_id: decoded["sub"])
+    rescue JWT::DecodeError
+      nil
+    end
+
     def initialize(client_id:, user_id:)
       @client_id = client_id
       @user_id = user_id

@@ -6,6 +6,17 @@ module Pearly
       @token = Token.new(client_id: "test", user_id: 99)
     end
 
+    test ".validate" do
+      access_token = @token.access_token
+
+      new_token = Token.validate(access_token)
+      assert_equal "test", new_token.client_id
+      assert_equal 99, new_token.user_id
+
+      travel 1.day + 1.second
+      assert_nil Token.validate(access_token)
+    end
+
     test "#client_id" do
       assert_equal "test", @token.client_id
     end

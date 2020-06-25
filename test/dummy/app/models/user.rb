@@ -7,6 +7,10 @@ class User
     end
   end
 
+  def self.find(id)
+    User.new if id == 1
+  end
+
   def initialize
     @id = 1
   end
