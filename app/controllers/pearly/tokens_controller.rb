@@ -37,7 +37,7 @@ module Pearly
     end
 
     def validate_client
-      unless Pearly.validate_client.call(client_id, client_secret)
+      unless instance_exec(client_id, client_secret, &Pearly.validate_client)
         render json: { error: "invalid_client" }, status: 401
       end
     end
@@ -47,7 +47,7 @@ module Pearly
     end
 
     def authenticate_password
-      user = Pearly.authenticate.call(username, password)
+      user = instance_exec(username, password, &Pearly.authenticate)
 
       if user
         @token = Token.new(client_id: client_id, user_id: user.id)
