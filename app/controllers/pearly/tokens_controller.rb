@@ -1,8 +1,10 @@
-require_dependency "pearly/application_controller"
+require_dependency "pearly/api_application_controller"
 
 module Pearly
-  class TokensController < ApplicationController
+  class TokensController < ApiApplicationController
     SUPPORTED_GRANT_TYPES = %w(password)
+
+    skip_before_action :authenticate
 
     before_action :validate_grant_type
     before_action :validate_params
