@@ -3,7 +3,7 @@ PATH
   specs:
     pearly (0.1.0)
       jwt (~> 2.2, >= 2.2.1)
-      rails (~> 6.0.3, >= 6.0.3.2)
+      rails (~> 6.0, >= 6.0.3.2)
 
 GEM
   remote: https://rubygems.org/
