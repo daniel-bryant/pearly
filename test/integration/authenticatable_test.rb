@@ -1,11 +1,20 @@
 require 'test_helper'
 
 class AuthenticatableTest < ActionDispatch::IntegrationTest
+  setup do
+    @unauthorized_errors = [
+      {
+        "status" => "401",
+        "detail" => "Unauthorized",
+      }
+    ]
+  end
+
   test "should get rappers index without any authentication" do
     get rappers_url
 
     assert_response :unauthorized
-    assert_equal("HTTP Token: Access denied.\n", @response.body)
+    assert_equal(@unauthorized_errors, JSON.parse(@response.body))
   end
 
   test "should get rappers index without invalid authentication" do
@@ -14,7 +23,7 @@ class AuthenticatableTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :unauthorized
-    assert_equal("HTTP Token: Access denied.\n", @response.body)
+    assert_equal(@unauthorized_errors, JSON.parse(@response.body))
   end
 
   test "should get rappers index" do
@@ -24,7 +33,7 @@ class AuthenticatableTest < ActionDispatch::IntegrationTest
       "Authorization" => "Bearer #{access_token}"
     }
 
-    assert_equal([{ name: "Gunna" }].to_json, @response.body)
+    assert_equal([{ "name" => "Gunna" }], JSON.parse(@response.body))
   end
 
   test "should get rappers index with not found user" do
@@ -35,7 +44,7 @@ class AuthenticatableTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :unauthorized
-    assert_equal("HTTP Token: Access denied.\n", @response.body)
+    assert_equal(@unauthorized_errors, JSON.parse(@response.body))
   end
 
   test "should get rappers index with expired token" do
@@ -47,6 +56,6 @@ class AuthenticatableTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :unauthorized
-    assert_equal("HTTP Token: Access denied.\n", @response.body)
+    assert_equal(@unauthorized_errors, JSON.parse(@response.body))
   end
 end
