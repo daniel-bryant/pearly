@@ -22,7 +22,10 @@ module Pearly
     end
 
     def current_user
-      @current_user ||= User.find(current_token.user_id)
+      @current_user ||= begin
+                          classname, id = current_token.user_id.split(".")
+                          classname.constantize.find(id)
+                        end
     end
   end
 end

@@ -52,7 +52,8 @@ module Pearly
       user = instance_exec(username, password, &Pearly.authenticate)
 
       if user
-        @token = Token.new(client_id: client_id, user_id: user.id)
+        user_id = "#{user.class.name}.#{user.id}"
+        @token = Token.new(client_id: client_id, user_id: user_id)
       else
         render json: { error: "invalid_grant" }, status: 400
       end

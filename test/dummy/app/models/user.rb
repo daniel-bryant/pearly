@@ -8,7 +8,7 @@ class User
   end
 
   def self.find(id)
-    User.new if id == 1
+    User.new if id == "1"
   end
 
   def initialize

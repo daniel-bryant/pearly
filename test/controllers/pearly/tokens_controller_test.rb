@@ -119,7 +119,7 @@ module Pearly
       hmac_secret = Rails.application.secret_key_base[0..31]
 
       expected_access_token = JWT.encode({
-        sub: 1,
+        sub: "User.1",
         iss: "pearly",
         cid: "sample client",
         iat: Time.current.to_i,
@@ -127,7 +127,7 @@ module Pearly
       }, hmac_secret, 'HS256')
 
       expected_refresh_token = JWT.encode({
-        sub: 1,
+        sub: "User.1",
         iss: "pearly",
         cid: "sample client",
         iat: Time.current.to_i,
